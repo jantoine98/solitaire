@@ -19,5 +19,31 @@ public class ReferentielCarte
 		return valeursCartes;
 	}
 	
+	//Cette fonction retourne l'indice d'un symbole dans le tableau symbolesCartes
+	public static int getIndexInSymbolesCartes (String symbole) 
+	{
+		for(int i = 0; i < 4; i++)
+		{
+			if(ReferentielCarte.symbolesCartes[i] == symbole)
+			{
+				return i;
+			}
+		}
+		
+		return -1;
+	}
 	
+	//Cette fonction retourne l'indice d'une valeur dans le tableau valeursCartes
+		public static int getIndexInValeursCartes (String valeur) 
+		{
+			for(int i = 0; i < 13; i++)
+			{
+				if(ReferentielCarte.valeursCartes[i] == valeur)
+				{
+					return i;
+				}
+			}
+			
+			return -1;
+		}
 }

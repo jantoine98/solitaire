@@ -32,5 +32,46 @@ public class MainTest {
 			System.out.println("/*****************************/");
 		}
 		
+		//Création de piles
+		ArrayList<Pile> piles = new ArrayList<Pile>();
+		
+		for(int i = 0; i < 4; i++)
+		{
+			piles.add(new Pile(ReferentielCarte.getSymbolescartes()[i]));
+		}
+		
+		//on parcourt les colonnes
+		for(int i = 0; i < 7; i++)
+		{
+			Colonne colonne = colonnes.get(i);
+			ArrayList<Carte> cartesVisibles = colonne.getCartesVisible();
+			
+			for(int j = 0; j < cartesVisibles.size(); j++)
+			{
+				Carte carte = cartesVisibles.get(j);
+				int numPile = ReferentielCarte.getIndexInSymbolesCartes(carte.getSymbole());
+				Pile pile = piles.get(0);
+				//si la pile du symbole est vide, et que la carte est un As
+				//Donc on peut déplacer la carte de la colonne vers la pile
+				if(pile.getCartes().size() == 0 && carte.getSymbole() == "As")
+				{
+					//On ajoute la carte à la pile
+					pile.getCartes().add(carte);
+					//il faut la retirer ensuite de la colonne
+					colonne.getCartesVisible().remove(carte);
+					//il faut mettre la première carte de la colonne en visible, si elle n'est pas vide
+					if(colonne.getCartesVisible().size() > 0)
+					{
+						colonne.getCartesVisible().get(0).setVisible(true);
+					}
+				}
+			}
+		}
+		
+		for(int i = 0; i < 4; i++)
+		{
+			System.out.println(piles.get(i).afficherCartes());
+		}
+		
 	}
 }

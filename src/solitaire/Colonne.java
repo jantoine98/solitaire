@@ -54,4 +54,19 @@ public class Colonne
 		return colonne;
 	}
 	
+	public ArrayList<Carte> getCartesVisible()
+	{
+		ArrayList<Carte> cartes = new ArrayList<Carte>();
+		
+		for(int i = 0; i < this.nbCartes; i++)
+		{
+			if(this.listeCartes.get(i).isVisible())
+			{
+				cartes.add(this.listeCartes.get(i));
+			}
+		}
+		
+		return cartes;
+	}
+	
 }
