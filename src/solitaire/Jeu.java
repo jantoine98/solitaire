@@ -12,10 +12,14 @@ public class Jeu
 {
 	private final int nbCartes = 52; // toute partie solitaire est composée de 52 cartes : constante
 	private ArrayList<Carte> cartesRestantes;
+	private ArrayList<Colonne> colonnes;
+	private ArrayList<Pile> piles;
 	
 	//Constructeur
 	public Jeu() {
 		this.cartesRestantes = new ArrayList<Carte>();
+		this.colonnes = new ArrayList<Colonne>();
+		this.piles = new ArrayList<Pile>();
 	}
 
 	public ArrayList<Carte> getCartesRestantes() {
@@ -30,8 +34,23 @@ public class Jeu
 		return nbCartes;
 	}
 	
+	public ArrayList<Colonne> getColonnes() {
+		return colonnes;
+	}
+
+	public void setColonnes(ArrayList<Colonne> colonnes) {
+		this.colonnes = colonnes;
+	}
+
+	public ArrayList<Pile> getPiles() {
+		return piles;
+	}
+
+	public void setPiles(ArrayList<Pile> piles) {
+		this.piles = piles;
+	}
 	
-	public void creerCartes() 
+	public void initialiser() 
 	{
 		// On parcourt les valeurs qui sont dans ReferentielCarte
 		for(int i = 0; i < 13; i++)
@@ -43,6 +62,21 @@ public class Jeu
 				String valeur = ReferentielCarte.getValeurscartes()[i];
 				this.cartesRestantes.add(new Carte(symbole, valeur , false));
 			}
+		}
+		
+		// Création des colonnes
+		for(int i = 1; i < 8; i++)
+		{
+			Colonne colonne = new Colonne(i, i);
+			ArrayList<Carte> listeCartesAleatoires = this.recupererPlusieursCartes(i);
+			colonne.setListeCartes(listeCartesAleatoires);
+			this.colonnes.add(colonne);
+		}
+		
+		//Création de piles
+		for(int i = 0; i < 4; i++)
+		{
+			piles.add(new Pile(ReferentielCarte.getSymbolescartes()[i]));
 		}
 		
 	}
@@ -95,6 +129,29 @@ public class Jeu
 			cartes += this.cartesRestantes.get(i).toString() + "\n";
 		}
 		return cartes;
+	}
+	
+	public String afficherPiles()
+	{
+		String piles = "";
+		for(int i = 0; i < 4; i++)
+		{
+			piles += "Pile : " + this.piles.get(i).getSymbole() + "\n";
+			piles += this.piles.get(i).toString()+ "\n";
+		}
+		return piles;
+	}
+	
+	public boolean isColonnesEmpty()
+	{
+		for(int i = 0; i < 7; i++)
+		{
+			if(!this.colonnes.get(i).getCartesVisible().isEmpty())
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 		
 

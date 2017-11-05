@@ -43,6 +43,8 @@ public class Colonne
 		this.listeCartes = listeCartes;
 	}
 	
+	
+	
 	// Cette fonction affiche les cartes d'une colonne
 	public String afficherColonne() 
 	{
@@ -54,11 +56,12 @@ public class Colonne
 		return colonne;
 	}
 	
+	// Cette fonction récupère les cartes visibles d'une colonne
 	public ArrayList<Carte> getCartesVisible()
 	{
 		ArrayList<Carte> cartes = new ArrayList<Carte>();
 		
-		for(int i = 0; i < this.nbCartes; i++)
+		for(int i = 0; i < this.listeCartes.size(); i++)
 		{
 			if(this.listeCartes.get(i).isVisible())
 			{
@@ -68,5 +71,22 @@ public class Colonne
 		
 		return cartes;
 	}
+	
+	// Cette fonction récupère les cartes cachées d'une colonne
+		public ArrayList<Carte> getCartesCachees()
+		{
+			ArrayList<Carte> cartes = new ArrayList<Carte>();
+			
+			for(int i = 0; i < this.listeCartes.size(); i++)
+			{
+				//si la carte n'est pas visible, on l'ajoute dans la liste
+				if(! this.listeCartes.get(i).isVisible())
+				{
+					cartes.add(this.listeCartes.get(i));
+				}
+			}
+			
+			return cartes;
+		}
 	
 }
