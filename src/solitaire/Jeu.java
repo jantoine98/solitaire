@@ -137,7 +137,7 @@ public class Jeu
 		for(int i = 0; i < 4; i++)
 		{
 			piles += "Pile : " + this.piles.get(i).getSymbole() + "\n";
-			piles += this.piles.get(i).toString()+ "\n";
+			piles += this.piles.get(i).afficherCartes()+ "\n";
 		}
 		return piles;
 	}

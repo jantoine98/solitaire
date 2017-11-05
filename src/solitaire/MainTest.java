@@ -32,6 +32,7 @@ public class MainTest {
 			
 		
 		while(! jeu.isColonnesEmpty()){
+			changement = false;
 			//on parcourt les colonnes
 			for(int i = 0; i < 7; i++)
 			{
@@ -138,8 +139,15 @@ public class MainTest {
 				}
 				
 			}
+			//s'il n'y a pas de changement, on quitte la boucle
+			if(changement == false)
+			{
+				break;
+			}
 		}
-		jeu.afficherPiles();
+		
+		System.out.println("\naffichage des piles : \n");
+		System.out.println(jeu.afficherPiles());
 		
 	}
 }
