@@ -10,7 +10,7 @@ import java.util.Random;
  */
 public class Jeu 
 {
-	private final int nbCartes = 52; // toute partie solitaire est composÈe de 52 cartes : constante
+	private final int nbCartes = 52; // toute partie solitaire est composÔøΩe de 52 cartes : constante
 	private ArrayList<Carte> cartesRestantes;
 	private ArrayList<Colonne> colonnes;
 	private ArrayList<Pile> piles;
@@ -64,7 +64,7 @@ public class Jeu
 			}
 		}
 		
-		// CrÈation des colonnes
+		// CrÔøΩation des colonnes
 		for(int i = 1; i < 8; i++)
 		{
 			Colonne colonne = new Colonne(i, i);
@@ -73,7 +73,7 @@ public class Jeu
 			this.colonnes.add(colonne);
 		}
 		
-		//CrÈation de piles
+		//CrÔøΩation de piles
 		for(int i = 0; i < 4; i++)
 		{
 			piles.add(new Pile(ReferentielCarte.getSymbolescartes()[i]));
@@ -82,26 +82,26 @@ public class Jeu
 	}
 	
 	/**
-	 * Cette fonction rÈcupËre une carte alÈatoire 
+	 * Cette fonction rÔøΩcupÔøΩre une carte alÔøΩatoire 
 	 * @return Carte
 	 */
 	public Carte recupererCarteAleatoire()
 	{
 		Random random = new Random	();
-		// RÈcupÈrer un nombre alÈatoire entre 0 et le nombre de carte restantes
+		// RÔøΩcupÔøΩrer un nombre alÔøΩatoire entre 0 et le nombre de carte restantes
 		int nbCartesRestantes = this.cartesRestantes.size();
 		int  nombreAleatoire = random.nextInt(nbCartesRestantes - 1) + 1;
 		
 		Carte carteAleatoire = this.cartesRestantes.get(nombreAleatoire);
 		
-		//Une fois la carte est rÈcupÈrÈe, on la retire de la liste
+		//Une fois la carte est rÔøΩcupÔøΩrÔøΩe, on la retire de la liste
 		this.cartesRestantes.remove(nombreAleatoire);
 		
 		return carteAleatoire;
 	}
 	
 	/**
-	 * Cette fonction rÈcupËre plusieurs cartes alÈatoires et retourne une liste
+	 * Cette fonction rÔøΩcupÔøΩre plusieurs cartes alÔøΩatoires et retourne une liste
 	 * @param nbCartesARecuperer
 	 * @return cartes
 	 */
@@ -115,7 +115,7 @@ public class Jeu
 			cartes.add(carteAleatoire);
 		}
 		
-		//on rend visible la premiËre carte de chaque colonne
+		//on rend visible la premiÔøΩre carte de chaque colonne
 		cartes.get(0).setVisible(true);
 		return cartes;
 	}
@@ -152,6 +152,107 @@ public class Jeu
 			}
 		}
 		return true;
+	}
+	
+	//piocher la premi√®re carte de la liste restante
+	public Carte piocher()
+	{
+		Carte cartePiochee = this.cartesRestantes.get(0);
+		this.cartesRestantes.remove(0);
+		
+		System.out.println("Carte pioch√©e :" + cartePiochee.toString());
+		return cartePiochee;
+	}
+	
+	//Cette fonction permet de ranger une carte pioch√©e si on n'arrive pas la placer dans une colonne ou dans une pile
+	public void ranger(Carte carte)
+	{
+		System.out.println("Carte rang√©e :" + carte.toString());
+		this.cartesRestantes.add(carte);
+	}
+	
+	//Cette fonction permet de placer une carte pioch√©e dans une colonne, si cela est possible
+	public boolean placerCarteDansColonne(Carte carte)
+	{
+		// On parcourt l'ensemble des colonnes
+		for(int i = 0; i < 7; i++)
+		{
+			Colonne colonne = this.colonnes.get(i);
+			//On r√©cup√®re les cartes visibles de chaque colonne et on v√©rifie si on peut placer la carte pass√©e en param√®tre
+			ArrayList<Carte> cartesVisibles = colonne.getCartesVisible();
+			
+			//Si la colonne n'a pas de cartes visibles (elle est vide), donc on peut placer la carte en param√®tre 
+			if(cartesVisibles.size() == 0)
+			{
+				carte.setVisible(true);
+				this.colonnes.get(i).getListeCartes().add(carte);
+				
+				System.out.println("D√©placement de la carte pioch√©e:" + carte.toString() + "vers la colonne :" + colonne.getNumeroOrdre());
+				return true;
+			}
+			else
+			{
+				//R√©cup√©rer la derni√®re carte visible de la colonne
+				Carte derniereCarteVisible = cartesVisibles.get(cartesVisibles.size()-1);
+				
+				// Ex: pour une carte de valeur As, cette variable vaut 0, pour un 2, elle vaut 1 et ainsi de suite
+				int indiceDerniereCarteVisible = ReferentielCarte.getIndexInValeursCartes(derniereCarteVisible.getValeur());
+				int indiceCarteAPlacer = ReferentielCarte.getIndexInValeursCartes(carte.getValeur());
+				
+				if( (indiceCarteAPlacer + 1) == indiceDerniereCarteVisible)
+				{
+					carte.setVisible(true);
+					this.colonnes.get(i).getListeCartes().add(carte);
+					System.out.println("carte d'avant : " + derniereCarteVisible.toString());
+					System.out.println("D√©placement de la carte pioch√©e :" + carte.toString() + "vers la colonne :" + colonne.getNumeroOrdre());
+					return true;
+				}
+			}
+		}
+		
+		//Si on n'arrive pas √† placer la carte dans une colonne, alors on retourne false
+		return false;
+		
+	}
+	
+	public boolean placerCartePile(Carte carte)
+	{
+		int numPile = ReferentielCarte.getIndexInSymbolesCartes(carte.getSymbole());
+		Pile pile = this.piles.get(numPile);
+		
+		//si la pile du symbole est vide, et que la carte est un As
+		//Donc on peut d√©placer la carte de la colonne vers la pile
+		if(pile.getCartes().size() == 0 && carte.getValeur() == "As")
+		{
+			//On ajoute la carte √† la pile
+			pile.getCartes().add(carte);
+			System.out.println("D√©placement de la carte pioch√©e :" + carte.toString() + "vers la pile :" + pile.getSymbole());
+			
+			return true;
+		}
+		else if (pile.getCartes().size() != 0 )
+		{
+			//R√©cup√©rer la derni√®re carte de la pile
+			Carte derniereCartePile = pile.getCartes().get(pile.getCartes().size()-1);
+			
+			// Ex: pour une carte de valeur As, cette variable vaut 0, pour un 2, elle vaut 1 et ainsi de suite 
+			int indiceCarteVisible = ReferentielCarte.getIndexInValeursCartes(carte.getValeur());
+			
+			int indiceDerniereCartePile = ReferentielCarte.getIndexInValeursCartes(derniereCartePile.getValeur());
+			
+			if(indiceCarteVisible == (indiceDerniereCartePile + 1))
+			{
+				//On ajoute la carte √† la pile
+				pile.getCartes().add(carte);
+				System.out.println("D√©placement de la carte pioch√©e:" + carte.toString() + "vers la pile :" + pile.getSymbole());
+				
+				return true;
+			}
+		}
+			
+		//Si on n'arrive pas √† placer la carte dans une pile, alors on retourne false
+		return false;
+			
 	}
 		
 
