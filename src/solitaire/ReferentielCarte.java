@@ -1,21 +1,21 @@
 package solitaire;
 
 /**
- * Cette classe sert à définir les symoles et les valeurs possibles des cartes
+ * Cette classe sert ï¿½ dï¿½finir les symoles et les valeurs possibles des cartes
  * @author Antoine
  *
  */
 public class ReferentielCarte 
 {
 	private static final String[] symbolesCartes = {"pique","coeur","carreau","trefle"};
-	private static final String[] valeursCartes = {"As","2","3","4","5","6","7","8","9","10","V","D","R"};
-	
+	private static final int[] valeursCartes = {1,2,3,4,5,6,7,8,9,10,11,12,13};
+
 	
 	public static String[] getSymbolescartes() {
 		return symbolesCartes;
 	}
 
-	public static String[] getValeurscartes() {
+	public static int[] getValeurscartes() {
 		return valeursCartes;
 	}
 	
@@ -34,7 +34,7 @@ public class ReferentielCarte
 	}
 	
 	//Cette fonction retourne l'indice d'une valeur dans le tableau valeursCartes
-		public static int getIndexInValeursCartes (String valeur) 
+		public static int getIndexInValeursCartes (int valeur) 
 		{
 			for(int i = 0; i < 13; i++)
 			{

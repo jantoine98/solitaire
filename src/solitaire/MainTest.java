@@ -8,6 +8,7 @@ public class MainTest {
 	{
 		Jeu jeu = new Jeu();
 		jeu.initialiser();
+		jeu.listeVisible();
 		
 		//System.out.println(jeu.afficherCartes());
 		//System.out.println("Nombre de cartes : " + jeu.getCartesRestantes().size());
@@ -15,16 +16,9 @@ public class MainTest {
 		
 		ArrayList<Colonne> colonnes = jeu.getColonnes();
 	
-		
+
 		//affichage de colonnes
-		for(int i = 0; i < 7; i++)
-		{
-			System.out.println("colonne n� " + colonnes.get(i).getNumeroOrdre());
-			//affichage de chaque carte d'une colonne
-			System.out.println(colonnes.get(i).afficherColonne());
-			System.out.println("/*****************************/");
-		}
-		
+
 		ArrayList<Pile> piles = jeu.getPiles();
 		
 		//Utiliser ce bool�en pour savoir quand est-ce qu'il faut piocher (il faut piocher quand il n'y a pas de changement)
@@ -33,6 +27,16 @@ public class MainTest {
 		
 		while(! jeu.isColonnesEmpty()){
 			changement = false;
+			jeu.affichePioche();
+			for(int i = 0; i < 7; i++)
+			{
+				System.out.println("colonne n� " + colonnes.get(i).getNumeroOrdre());
+				//affichage de chaque carte d'une colonne
+				System.out.println(colonnes.get(i).afficherColonne());
+				System.out.println("/*****************************/");
+			}
+			
+			jeu.choix();
 			//on parcourt les colonnes
 			for(int i = 0; i < 7; i++)
 			{
@@ -44,6 +48,7 @@ public class MainTest {
 				// int�ressant car il ne nous permettra pas d'afficher une carte cach�e
 				if(cartesVisibles.size() == 1)
 				{
+					
 					Carte carteVisible = cartesVisibles.get(0);
 					
 					//Voir si on d�placer cette carte vers une autre colonne
@@ -61,7 +66,7 @@ public class MainTest {
 						
 						//Ex: Si on trouve une carte visible de valeur 8 dans une colonne A,
 						//et une carte de valeur 7 dans une colonne B, on d�place le 7 vers la colonne A
-						if(indexDerniereCarteVisible == (indexCarteVisible + 1))
+						/*if(indexDerniereCarteVisible == (indexCarteVisible + 1))
 						{
 							//Supprimer la carte de la premi�re colonne 
 							colonne.getListeCartes().remove(carteVisible);
@@ -80,11 +85,12 @@ public class MainTest {
 							System.out.println("D�placement de la carte " + carteVisible.toString() + "de la colonne : " + (i+1) + " vers la colonne: " + (m+1));
 							
 						}
+					*/
 					}
 				}
 				
 				//On parcourt les cartes visibles de chaque colonne
-				for(int j = 0; j < cartesVisibles.size(); j++)
+				/*for(int j = 0; j < cartesVisibles.size(); j++)
 				{
 					Carte carte = cartesVisibles.get(j);
 					int numPile = ReferentielCarte.getIndexInSymbolesCartes(carte.getSymbole());
@@ -138,10 +144,10 @@ public class MainTest {
 						}
 					}
 				}
-				
+				*/
 			}
 			//s'il n'y a pas de changement, on pioche une carte
-			if(changement == false)
+			/*if(changement == false)
 			{
 				//Cette variable vaut true si on arrive à placer une carte piochée dans une colonne
 				boolean cartePlaceeDansColonne = false;
@@ -173,10 +179,16 @@ public class MainTest {
 					if (cpt == 10)return;
 				}
 			}
+			*/
+
 		}
 		
-		System.out.println("\naffichage des piles : \n");
+
+
+		
+		System.out.println("\n affichage des piles : \n");
 		System.out.println(jeu.afficherPiles());
 		
+
 	}
 }

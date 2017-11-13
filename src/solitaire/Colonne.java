@@ -18,6 +18,10 @@ public class Colonne
 		this.nbCartes = nbCartes;
 		this.listeCartes = new ArrayList<Carte>();
 	}
+	
+	public void incNb() {
+		nbCartes++;
+	}
 
 	public int getNumeroOrdre() {
 		return numeroOrdre;
@@ -26,6 +30,8 @@ public class Colonne
 	public void setNumeroOrdre(int numeroOrdre) {
 		this.numeroOrdre = numeroOrdre;
 	}
+	
+
 
 	public int getNbCartes() {
 		return nbCartes;
@@ -33,6 +39,10 @@ public class Colonne
 
 	public void setNbCartes(int nbCartes) {
 		this.nbCartes = nbCartes;
+	}
+	
+	public void addCarte(Carte a) {
+		listeCartes.add(a);
 	}
 
 	public ArrayList<Carte> getListeCartes() {
@@ -56,7 +66,7 @@ public class Colonne
 		return colonne;
 	}
 	
-	// Cette fonction récupère les cartes visibles d'une colonne
+	// Cette fonction rï¿½cupï¿½re les cartes visibles d'une colonne
 	public ArrayList<Carte> getCartesVisible()
 	{
 		ArrayList<Carte> cartes = new ArrayList<Carte>();
@@ -72,7 +82,7 @@ public class Colonne
 		return cartes;
 	}
 	
-	// Cette fonction récupère les cartes cachées d'une colonne
+	// Cette fonction rï¿½cupï¿½re les cartes cachï¿½es d'une colonne
 		public ArrayList<Carte> getCartesCachees()
 		{
 			ArrayList<Carte> cartes = new ArrayList<Carte>();
@@ -87,6 +97,10 @@ public class Colonne
 			}
 			
 			return cartes;
+		}
+		
+		public Carte getLastCarte() {
+			return listeCartes.get(0);
 		}
 	
 }

@@ -7,13 +7,13 @@ package solitaire;
 public class Carte 
 {
 	private String symbole;
-	private String valeur;
+	private int valeur;
 	public String couleur;
 	private boolean visible; // pour savoir si la carte est visible ou non dans une colonne 
 	
 	//constructeur
-	//On ne passe pas la couleur en paramètre parce qu'on peut la deviner à partir du symbole
-	public Carte(String symbole, String valeur, boolean visible) {
+	//On ne passe pas la couleur en paramï¿½tre parce qu'on peut la deviner ï¿½ partir du symbole
+	public Carte(String symbole, int valeur, boolean visible) {
 		this.symbole = symbole;
 		this.valeur = valeur;
 		this.visible = visible;
@@ -29,11 +29,11 @@ public class Carte
 		this.symbole = symbole;
 	}
 
-	public String getValeur() {
+	public int getValeur() {
 		return valeur;
 	}
 
-	public void setValeur(String valeur) {
+	public void setValeur(int valeur) {
 		this.valeur = valeur;
 	}
 
@@ -64,15 +64,18 @@ public class Carte
 		return visible;
 	}
 
-	public void setVisible(boolean visible) {
-		this.visible = visible;
+	public void setVisible() {
+		this.visible = true;
 	}
 
-	//généré par eclipse
+	//gï¿½nï¿½rï¿½ par eclipse
 	@Override
 	public String toString() {
+		if(visible)
 		return "Carte [symbole=" + symbole + ", valeur=" + valeur + ", couleur=" + couleur + ", visible=" + visible
 				+ "]";
+		else
+			return "Carte CachÃ©e";
 	}
 	
 	
