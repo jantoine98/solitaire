@@ -11,7 +11,7 @@ public class Carte
 	public String couleur;
 	private boolean visible; // pour savoir si la carte est visible ou non dans une colonne 
 	
-	//constructeur
+	//constructeur  n
 	//On ne passe pas la couleur en param�tre parce qu'on peut la deviner � partir du symbole
 	public Carte(String symbole, int valeur, boolean visible) {
 		this.symbole = symbole;
